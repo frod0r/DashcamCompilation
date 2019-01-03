@@ -33,11 +33,12 @@ func main() {
 		if filepath.Ext(file.Name()) == ".MP4" {
 			fmt.Printf("#################Now working on %v, (No %v)\n", file.Name(), index)
 			var stdoutBuf, stderrBuf bytes.Buffer
-			newName := "trim_" + string(index) + "_" + file.Name()
+			newName := "trim_" + file.Name()
 			if _, err := fo.WriteString("file '" + newName + "'\n"); err != nil {
 				panic(err)
 			}
-			clipCmd := exec.Command("ffmpeg", "-r:v", "60", "-i", file.Name(), "-ss", "0", "-t", "5", newName)
+			println(newName)
+			clipCmd := exec.Command("ffmpeg", "-r:v", "60", "-i", file.Name(), "-t", "1", newName)
 			stdoutIn, _ := clipCmd.StdoutPipe()
 			stderrIn, _ := clipCmd.StderrPipe()
 
